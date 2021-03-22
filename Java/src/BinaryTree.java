@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class BinaryTree {
     private BinaryTreeNode root;
 
@@ -112,8 +114,67 @@ public class BinaryTree {
         for(int i = 0; i < current.getCount() + 1; i++)
             System.out.print(current.getKey() + " ");
         recursiveInOrder(current.getRight());
+    }
 
+    public void preOrderTraversal(BinaryTreeNode root){
+        if(root == null)
+            return;
+        else
+            recursivePreOrder(root);
+    }
 
+    private void recursivePreOrder(BinaryTreeNode current){
+        if(current == null)
+            return;
+        for(int i = 0; i < current.getCount() + 1; i++)
+            System.out.print(current.getKey() + " ");
+        recursivePreOrder(current.getLeft());
+        recursivePreOrder(current.getRight());
+    }
+
+    public void postOrderTraversal(BinaryTreeNode root){
+        if(root == null)
+            return;
+        else
+            recursivePostOrder(root);
+    }
+
+    private void recursivePostOrder(BinaryTreeNode current){
+        if(current == null)
+            return;
+        recursivePostOrder(current.getLeft());
+        recursivePostOrder(current.getRight());
+        for(int i = 0; i < current.getCount() + 1; i++)
+            System.out.print(current.getKey() + " ");
+    }
+
+    public void delete(GenericItemType key){
+        if(root == null)
+            return;
+        else
+            root = recursiveDelete(key, root);
+    }
+
+    public BinaryTreeNode recursiveDelete(GenericItemType key, BinaryTreeNode current){
+        if(current == null)
+            return null;
+        else if(key.isLess(current.getKey()))
+            current.setLeft(recursiveDelete(key, current.getLeft()));
+        else if(key.isGreater(current.getKey()))
+            current.setRight(recursiveDelete(key, current.getRight()));
+        else{
+            if(current.getLeft() == null && current.getRight() == null)
+                current = null;
+            else if(current.getLeft() == null)
+                current = current.getRight();
+            else if(current.getRight() == null)
+                current = current.getLeft();
+            else{
+                current.setKey(findMin(current.getRight()).getKey());
+                current.setRight(recursiveDelete(findMin(current.getRight()).getKey(), current.getRight()));
+            }
+        }
+        return current;
     }
 
 }
