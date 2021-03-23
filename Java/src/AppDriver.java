@@ -1,35 +1,41 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 public class AppDriver {
     public static void main(String[] args) {
         BinaryTree newTree = new BinaryTree();
-        newTree.insert(new IntegerDataType(3));
-        newTree.insert(new IntegerDataType(4));
-        newTree.insert(new IntegerDataType(50));
-        newTree.insert(new IntegerDataType(60));
-        newTree.insert(new IntegerDataType(23));
-        newTree.insert(new IntegerDataType(43));
-        newTree.insert(new IntegerDataType(15));
-        newTree.insert(new IntegerDataType(50));
-        newTree.insert(new IntegerDataType(15));
-        newTree.insert(new IntegerDataType(50));
+        insert(newTree);
 
-        System.out.print("In Order: ");
+        // Insert the dictionary into the BST
+            // Read through each line in the txt file
+            // Insert each line into the BST
+
+
+        // Print the BST in ascending and descending order
+
         newTree.inOrderTraversal(newTree.getRoot());
-        System.out.print("\nPost Order: ");
-        newTree.postOrderTraversal(newTree.getRoot());
-        System.out.print("\nPre Order: ");
-        newTree.preOrderTraversal(newTree.getRoot());
-        System.out.println();
+        // Delete the following words from the BST
 
-        // Delete some items.
-        newTree.delete(new IntegerDataType(23));
-        newTree.delete(new IntegerDataType(50));
-
-        System.out.print("\n\nIn Order: ");
-        newTree.inOrderTraversal(newTree.getRoot());
+        // Reprint the BST in ascending and descending order
 
 
+    }
+
+    public static void insert(BinaryTree tree){
+        try{
+            File myObj = new File("dictionary.txt");
+            Scanner myReader = new Scanner(myObj);
+            while(myReader.hasNextLine()){
+                String data = myReader.nextLine();
+                tree.insert(new StringDataType(data));
+            }myReader.close();
 
 
+        } catch(FileNotFoundException e){
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
 
 
     }

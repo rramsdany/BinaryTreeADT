@@ -112,7 +112,7 @@ public class BinaryTree {
             return;
         recursiveInOrder(current.getLeft());
         for(int i = 0; i < current.getCount() + 1; i++)
-            System.out.print(current.getKey() + " ");
+            System.out.println(((StringDataType)current.getKey()).get()); // Casted specifically for Strings
         recursiveInOrder(current.getRight());
     }
 
